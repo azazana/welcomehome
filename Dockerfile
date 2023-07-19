@@ -1,7 +1,12 @@
-FROM python:3.9-alpine3.13
+FROM python:3.9-slim
 LABEL maintainer='azazana'
 
 ENV PYTHONUNBUFFERED 1
+
+RUN apt-get update \
+    && apt-get upgrade -y \
+    && apt-get install -y gcc default-libmysqlclient-dev pkg-config \
+    && rm -rf /var/lib/apt/lists/*
 
 COPY ./requirements.txt /tmp/requirements.txt
 COPY ./requirements.dev.txt /tmp/requirements.dev.txt
@@ -24,8 +29,7 @@ adduser \
     mkdir -p /vol/web/media && \
     mkdir -p /vol/web/static && \
     chown -R django-user:django-user /vol && \
-    chmod -R 755 /vol && \
-    chmod -R +x /scripts
+    chmod -R 755 /vol
 
 ENV PATH="/py/bin:$PATH"
 

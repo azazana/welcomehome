@@ -1,9 +1,22 @@
 version: '3.9'
 
 services:
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=my_root_password
+      - MYSQL_DATABASE = ${DB_NAME}
+      - MYSQL_USER = ${DB_USER}
+      - MYSQL_PASSWORD = ${DB_PASSWORD}
+
   app:
     environment:
       - SECRET_KEY=${SECRET_KEY}
+      - DB_NAME = ${DB_NAME}
+      - DB_USER = ${DB_USER}
+      - DB_PASSWORD = ${DB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD = ${MYSQL_ROOT_PASSWORD}
       - DEBUG=1
     build:
       context: .
@@ -14,6 +27,8 @@ services:
     volumes:
       - ./welcomeHome:/welcomeHome
       - dev-static-data:/vol/web
+    depends_on:
+      - db
     command: >
       python manage.py migrate &&
       python manage.py runserver 0.0.0.0:8000'
