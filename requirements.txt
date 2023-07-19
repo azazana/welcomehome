@@ -3,3 +3,4 @@ python-dotenv==1.0
 djangorestframework==3.14
 drf-spectacular==0.16
 mysqlclient==2.2.0
+mysql-connector-python==8.1

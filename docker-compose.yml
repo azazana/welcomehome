@@ -5,33 +5,43 @@ services:
     image: mysql:8.0
     restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD=my_root_password
-      - MYSQL_DATABASE = ${DB_NAME}
-      - MYSQL_USER = ${DB_USER}
-      - MYSQL_PASSWORD = ${DB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD = ${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE = ${MYSQL_DATABASE}
+      - MYSQL_USER = ${MYSQL_USER}
+      - MYSQL_PASSWORD = ${MYSQL_PASSWORD}
 
+    env_file:
+      - .env
+    ports:
+      - 3306:3306
+    volumes:
+     - db_data:/var/lib/mysql
   app:
     environment:
       - SECRET_KEY=${SECRET_KEY}
-      - DB_NAME = ${DB_NAME}
-      - DB_USER = ${DB_USER}
-      - DB_PASSWORD = ${DB_PASSWORD}
-      - MYSQL_ROOT_PASSWORD = ${MYSQL_ROOT_PASSWORD}
+      - DB_HOST=db
+      - DB_NAME=${MYSQL_DATABASE}
+      - DB_USER=${MYSQL_USER}
+      - DB_PASSWORD=${MYSQL_PASSWORD}
       - DEBUG=1
     build:
       context: .
       args:
         - DEV=true
+    env_file:
+      - .env
     ports:
       - 8000:8000
     volumes:
       - ./welcomeHome:/welcomeHome
       - dev-static-data:/vol/web
+    restart: always
     depends_on:
       - db
     command: >
-      python manage.py migrate &&
+      sh -c 'python manage.py migrate &&
       python manage.py runserver 0.0.0.0:8000'
 
 volumes:
+  db_data:
   dev-static-data:
