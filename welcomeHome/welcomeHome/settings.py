@@ -75,15 +75,17 @@ WSGI_APPLICATION = "welcomeHome.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
+print(os.environ.get('DB_HOST'))
+print(os.environ.get('DB_NAME'))
+print(os.environ.get('DB_USER'))
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME':os.environ.get('DB_NAME'),
+        'HOST': os.environ.get('DB_HOST'),
+        'NAME': os.environ.get('DB_NAME'),
         'USER': os.environ.get('DB_USER'),
         'PASSWORD': os.environ.get('DB_PASSWORD'),
-        'HOST': os.environ.get('DB_HOST'),  # e.g., 'localhost' or '127.0.0.1'
-        'PORT': os.environ.get('DB_PORT'),  # e.g., '3306'
+        'PORT': '3306',  # e.g., '3306'
     }
 }
 

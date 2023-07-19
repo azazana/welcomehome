@@ -4,6 +4,9 @@ from django.conf import settings
 
 import os
 import django
+from dotenv import load_dotenv
+
+load_dotenv()
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'welcomeHome.settings')
 django.setup()
@@ -18,7 +21,7 @@ def upload_data_from_excel():
         host=db_config['HOST'],
         user=db_config['USER'],
         password=db_config['PASSWORD'],
-        # database=db_config['NAME']
+        database=db_config['NAME'],
     )
 
     cursor = cnx.cursor()
