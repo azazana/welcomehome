@@ -13,7 +13,6 @@ django.setup()
 
 
 def upload_data_from_excel():
-
     db_config = settings.DATABASES['default']
 
     # Создание подключения к базе данных MySQL
@@ -26,42 +25,54 @@ def upload_data_from_excel():
 
     cursor = cnx.cursor()
 
-    excel_file = 'path/to/your/excel_file.xlsx'
+    excel_file = 'CountryExample.xlsx'
     df = pd.read_excel(excel_file)
+    df = df.where(pd.notna(df), None)
 
     # Очистка таблицы перед загрузкой новых данных
-    cursor.execute('DELETE FROM Country')
+    cursor.execute('DELETE FROM core_country')
 
     # Загрузка данных в базу данных MySQL
     for _, row in df.iterrows():
+        # Assuming you have 37 columns in the core_country table
         query = """
-        INSERT INTO kamal_kays (country, code, country2, language, special_conditions_for_ukrainian_women, medical_insurance_for_non_citizens, medical_insurance_coverage_for_pregnancy_and_child_birth, organization_of_prenatal_care, prenatal_care_for_non_citizens, cost_of_delivery, organization_of_delivery, natural_birth_or_cesarean_section, citizenship_of_child_by_birth, prospects_of_parents_obtaining_citizenship, duration_of_maternity_leave, preparation_courses_for_childbirth, duration_of_job_protection_for_mother, payments_during_pregnancy, child_benefits, benefits_for_mothers_and_children, breastfeeding_support, postnatal_support_groups, arrangement_of_child_care_facilities, mandatory_age_for_kindergarten, cost_of_daycare, nursery, cost_of_nursery, mandatory_school_age, bonuses_for_having_23_children, conditions_for_single_mothers, conditions_for_children_with_disabilities, references_to_associations_funds_for_moms, doctor_appointment_booking_and_physician_reviews, immigration_conditions_residence_permit, references_to_migrant_communities, psychological_support, additional_useful_resources_and_links)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            INSERT INTO core_country (country, code, countryDescription, language, 
+            specialConditionsForUkrainianWomen, medicalInsuranceForNonCitizens, 
+            medicalInsuranceCoverageForPregnancyAndChildbirth, 
+            organizationOfPrenatalCare, prenatalCareForNonCitizens, costOfDelivery, 
+            organizationOfDelivery, naturalBirthOrCesareanSection, 
+            citizenshipOfChildByBirth, prospectsOfParentsObtainingCitizenship, 
+            durationOfMaternityLeave, preparationCoursesForChildbirth, durationOfJobProtectionForMother, 
+            paymentsDuringPregnancy, childBenefits, benefitsForMothersAndChildren, breastfeedingSupport, 
+            postnatalSupportGroups, arrangementOfChildCareFacilities, mandatoryAgeForKindergarten, costOfDaycare, 
+            nursery, costOfNursery, mandatorySchoolAge, bonusesForHaving23Children, conditionsForSingleMothers, 
+            conditionsForChildrenWithDisabilities, referencesToAssociationsFundsForMoms, 
+            doctorAppointmentBookingAndPhysicianReviews, immigrationConditionsResidencePermit, 
+            referencesToMigrantCommunities, psychologicalSupport, additionalUsefulResourcesAndLinks
+)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,
+             %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 
+            %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         """
-
+        # Assuming 'row' is a tuple containing data to be inserted into the table
         values = (
-            row['COUNTRY'], row['CODE'], row['COUNTRY_2'], row['LANGUAGE'],
-            row['SPECIAL_CONDITIONS_FOR_UKRAINIAN_WOMEN'], row['MEDICAL_INSURANCE_FOR_NON_CITIZENS'],
-            row['MEDICAL_INSURANCE_COVERAGE_FOR_PREGNANCY_AND_CHILD_BIRTH'], row['ORGANIZATION_OF_PRENATAL_CARE'],
-            row['VEDENNIA_VAHITNOSTI'], row['VARTIST_POLOGIV'], row['ORGANIZATION_OF_DELIVERY'],
-            row['PRYRODNI_POLOHY_CHY_KESARIV_ROZTYN'], row['HROMADIANSTVO_DYTINY_ZA_NARODZENNYAM'],
-            row['PERSPEKTYVA_OTRYMANNYA_HROMADIANSTVA_BATKAMY'], row['TRYVALIST_DEKRETNOYI_VIDPOUSTKY'],
-            row['KURSY_PIDHOTOVKY_DO_POLOHIV'], row['TRYVALIST_ZBEREZHENNYA_ROBOCHOHO_MISTSYA'],
-            row['VIPLATY_PO_VAHITNOSTI'], row['VIPLATY_NA_DYTINU'], row['LHOTY_DLYA_MATERIV_DITI'], row['PIDTRYMKA_GV'],
-            row['GRUPY_PIDTRYMKY_PISLYA_POLOHIV'], row['YAK_VLASHTOVANI_DYTYACHI_SADKY'],
-            row['YAKOHO_VIKU_OBOVYAZKOVI_DYTYACHYI_SADOK'], row['VARTIST_DYTYACHYKH_SADKIV'], row['YASLA'],
-            row['VARTIST_YASEL'], row['Z_YAKOHO_VIKU_OBOVYAZKOVA_SHKOLA'], row['BONUSY_NA_2_3_DYTINU'],
-            row['UMOVY_DLYA_MATERIV_ODYNACHOK'], row['UMOVY_DLYA_DITEY_Z_INVALIDNISTYU'],
-            row['POSYLANNYA_NA_ASOTSIATSII_FONDI_DLYA_MAM'], row['POSYLANNYA_NA_ZAPYS_DO_LIKARYA_I_PEREHLAD_LIKARIV'],
-            row['EMIHRAATSIYNI_UMOVY'], row['POSYLANNYA_NA_SPILNOTY_MIHRAANTIV'], row['PSYKHOLIHOCHNA_PIDTRYMKA'],
-            row['DODATKOVI_KORYSNI_RESURSY_I_POSYLANNYA']
+            row[0], row[1], row[2], row[3], row[4],
+            row[5], row[6], row[7], row[8],
+            row[9], row[10], row[11], row[12], row[13],
+            row[14], row[15], row[16], row[17],
+            row[18], row[19], row[20], row[21],
+            row[22], row[23], row[24], row[25], row[26],
+            row[27], row[28], row[29], row[30],
+            row[31], row[32], row[33], row[34],
+            row[35], row[36]
         )
 
+        # Execute the query using the cursor and values
         cursor.execute(query, values)
 
     # Сохраняем изменения в базе данных
-    cursor.commit()
-
+    cnx.commit()
+    cursor.close()
     cnx.close()
 
 

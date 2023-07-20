@@ -75,9 +75,7 @@ WSGI_APPLICATION = "welcomeHome.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-print(os.environ.get('DB_HOST'))
-print(os.environ.get('DB_NAME'))
-print(os.environ.get('DB_USER'))
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
