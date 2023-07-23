@@ -10,6 +10,10 @@ RUN apt-get update \
 
 COPY ./requirements.txt /tmp/requirements.txt
 COPY ./requirements.dev.txt /tmp/requirements.dev.txt
+COPY ./scripts ./scripts
+COPY ./scripts/run.sh ./scripts/run.sh
+
+
 COPY ./welcomeHome /welcomeHome
 WORKDIR /welcomeHome
 EXPOSE 8000
@@ -29,9 +33,11 @@ adduser \
     mkdir -p /vol/web/media && \
     mkdir -p /vol/web/static && \
     chown -R django-user:django-user /vol && \
-    chmod -R 755 /vol
+    chmod -R 755 /vol && \
+    chmod -R +x /scripts
 
-ENV PATH="/py/bin:$PATH"
+ENV PATH="/scripts:/py/bin:$PATH"
 
 USER django-user
 
+CMD ["/scripts/run.sh"]
