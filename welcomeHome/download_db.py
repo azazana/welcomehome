@@ -1,9 +1,9 @@
+import os
+
+import django
 import mysql.connector
 import pandas as pd
 from django.conf import settings
-
-import os
-import django
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -42,8 +42,9 @@ def upload_data_from_excel():
             organizationOfPrenatalCare, prenatalCareForNonCitizens, costOfDelivery, 
             organizationOfDelivery, naturalBirthOrCesareanSection, 
             citizenshipOfChildByBirth, prospectsOfParentsObtainingCitizenship, 
-            durationOfMaternityLeave, preparationCoursesForChildbirth, durationOfJobProtectionForMother, 
-            paymentsDuringPregnancy, childBenefits, benefitsForMothersAndChildren, breastfeedingSupport, 
+            durationOfMaternityLeave, preparationCoursesForChildbirth, 
+            durationOfJobProtectionForMother, paymentsDuringPregnancy, 
+            childBenefits, benefitsForMothersAndChildren, breastfeedingSupport, 
             postnatalSupportGroups, arrangementOfChildCareFacilities, mandatoryAgeForKindergarten, costOfDaycare, 
             nursery, costOfNursery, mandatorySchoolAge, bonusesForHaving23Children, conditionsForSingleMothers, 
             conditionsForChildrenWithDisabilities, referencesToAssociationsFundsForMoms, 

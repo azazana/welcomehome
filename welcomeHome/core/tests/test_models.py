@@ -7,7 +7,6 @@ class ModelTests(TestCase):
 
     def test_create_country(self):
         country = models.Country.objects.create(
-            country="Example country",code="MKHNM",
+            country="Example country", code="MKHNM",
         )
-        self.assertEqual(str(country),country.country)
-
+        self.assertEqual(str(country), country.country)
