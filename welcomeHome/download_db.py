@@ -38,27 +38,36 @@ def upload_data_from_excel():
         query = """
             INSERT INTO core_country (
             country_uk, code, countryDescription_uk, language_uk,
-            specialConditionsForUkrainianWomen_uk, medicalInsuranceForNonCitizens_uk,
+            specialConditionsForUkrainianWomen_uk,
+            medicalInsuranceForNonCitizens_uk,
             medicalInsuranceCoverageForPregnancyAndChildbirth_uk,
-            organizationOfPrenatalCare_uk, prenatalCareForNonCitizens_uk, costOfDelivery_uk,
+            organizationOfPrenatalCare_uk, prenatalCareForNonCitizens_uk,
+            costOfDelivery_uk,
             organizationOfDelivery_uk, naturalBirthOrCesareanSection_uk,
-            citizenshipOfChildByBirth_uk, prospectsOfParentsObtainingCitizenship_uk,
+            citizenshipOfChildByBirth_uk,
+            prospectsOfParentsObtainingCitizenship_uk,
             durationOfMaternityLeave_uk, preparationCoursesForChildbirth_uk,
             durationOfJobProtectionForMother_uk, paymentsDuringPregnancy_uk,
-            childBenefits_uk, benefitsForMothersAndChildren_uk, breastfeedingSupport_uk,
+            childBenefits_uk, benefitsForMothersAndChildren_uk,
+            breastfeedingSupport_uk,
             postnatalSupportGroups_uk, arrangementOfChildCareFacilities_uk,
             mandatoryAgeForKindergarten_uk, costOfDaycare_uk,
             nursery_uk, costOfNursery_uk, mandatorySchoolAge_uk,
             bonusesForHaving23Children_uk, conditionsForSingleMothers_uk,
-            conditionsForChildrenWithDisabilities_uk, referencesToAssociationsFundsForMoms_uk,
-            doctorAppointmentBookingAndPhysicianReviews_uk, immigrationConditionsResidencePermit_uk,
-            referencesToMigrantCommunities_uk, psychologicalSupport_uk, additionalUsefulResourcesAndLinks_uk
-)
+            conditionsForChildrenWithDisabilities_uk,
+            referencesToAssociationsFundsForMoms_uk,
+            doctorAppointmentBookingAndPhysicianReviews_uk,
+            immigrationConditionsResidencePermit_uk,
+            referencesToMigrantCommunities_uk, psychologicalSupport_uk,
+            additionalUsefulResourcesAndLinks_uk
+            )
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,
-             %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 
-            %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                 %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,
+                 %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         """
-        # Assuming 'row' is a tuple containing data to be inserted into the table
+
+        # Assuming 'row' is a tuple containing data
+        # to be inserted into the table
         values = (
             row[0], row[1], row[2], row[3], row[4],
             row[5], row[6], row[7], row[8],
@@ -74,7 +83,7 @@ def upload_data_from_excel():
         # Execute the query using the cursor and values
         cursor.execute(query, values)
 
-    # Сохраняем изменения в базе данных
+        # Сохраняем изменения в базе данных
     cnx.commit()
     cursor.close()
     cnx.close()

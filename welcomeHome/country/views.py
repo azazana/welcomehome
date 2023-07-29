@@ -1,13 +1,14 @@
 from core.models import (
     Country,
 )
-from rest_framework import viewsets
 from country import serializers
 from django.shortcuts import render
+from rest_framework import viewsets
 
 
 class CountryViewSet(viewsets.ModelViewSet):
     """View for manage country"""
+
     serializer_class = serializers.CountrySerializer
     queryset = Country.objects.all()
 
@@ -17,9 +18,9 @@ class CountryViewSet(viewsets.ModelViewSet):
 
 def index(request):
     countries = Country.objects.all()
-    return render(request, 'index.html', context={'countries': countries})
+    return render(request, 'index.html', context={'countries': countries},)
 
 
 def details(request, id):
     country = Country.objects.get(id=id)
-    return render(request, 'details.html', context={'country': country})
+    return render(request, 'details.html', context={'country': country},)
