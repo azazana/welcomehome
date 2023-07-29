@@ -1,4 +1,5 @@
 from django.db import models
+from tinymce import models as tinymce_models
 
 
 class Country(models.Model):
@@ -6,76 +7,42 @@ class Country(models.Model):
 
     country = models.CharField(max_length=255, null=True)
     code = models.CharField(max_length=255, null=True)
-    countryDescription = models.TextField(blank=True, null=True)
-    language = models.TextField(max_length=255, blank=True, null=True)
-    specialConditionsForUkrainianWomen = \
-        models.TextField(max_length=255, blank=True, null=True)
-    medicalInsuranceForNonCitizens = \
-        models.TextField(max_length=255, blank=True, null=True)
-    medicalInsuranceCoverageForPregnancyAndChildbirth = \
-        models.TextField(max_length=255, blank=True, null=True)
-    organizationOfPrenatalCare = \
-        models.TextField(max_length=255, blank=True, null=True)
-    prenatalCareForNonCitizens = \
-        models.TextField(max_length=255, blank=True, null=True)
-    costOfDelivery =\
-        models.TextField(max_length=255, blank=True, null=True)
-    organizationOfDelivery =\
-        models.TextField(max_length=255, blank=True, null=True)
-    naturalBirthOrCesareanSection =\
-        models.TextField(max_length=255, blank=True, null=True)
-    citizenshipOfChildByBirth =\
-        models.TextField(max_length=255, blank=True, null=True)
-    prospectsOfParentsObtainingCitizenship =\
-        models.TextField(max_length=255, blank=True, null=True)
-    durationOfMaternityLeave =\
-        models.TextField(max_length=255, blank=True, null=True)
-    preparationCoursesForChildbirth =\
-        models.TextField(max_length=255, blank=True, null=True)
-    durationOfJobProtectionForMother =\
-        models.TextField(max_length=255, blank=True, null=True)
-    paymentsDuringPregnancy =\
-        models.TextField(max_length=255, blank=True, null=True)
-    childBenefits = models.TextField(max_length=255, blank=True, null=True)
-    benefitsForMothersAndChildren = \
-        models.TextField(max_length=255, blank=True, null=True)
-    breastfeedingSupport = \
-        models.TextField(max_length=255, blank=True, null=True)
-    postnatalSupportGroups = \
-        models.TextField(max_length=255, blank=True, null=True)
-    arrangementOfChildCareFacilities = \
-        models.TextField(max_length=255, blank=True, null=True)
-    mandatoryAgeForKindergarten = \
-        models.TextField(max_length=255, blank=True, null=True)
-    costOfDaycare = \
-        models.TextField(max_length=255, blank=True, null=True)
-    nursery = \
-        models.TextField(max_length=255, blank=True, null=True)
-    costOfNursery = \
-        models.TextField(max_length=255, blank=True, null=True)
-    mandatorySchoolAge = \
-        models.TextField(max_length=255, blank=True, null=True)
-    bonusesForHaving23Children = \
-        models.TextField(max_length=255, blank=True, null=True)
-    conditionsForSingleMothers = \
-        models.TextField(max_length=255, blank=True, null=True)
-    conditionsForChildrenWithDisabilities =\
-        models.TextField(max_length=255, blank=True, null=True)
-    referencesToAssociationsFundsForMoms = \
-        models.TextField(blank=True, null=True)
-    doctorAppointmentBookingAndPhysicianReviews = \
-        models.TextField(max_length=255, blank=True, null=True)
-    immigrationConditionsResidencePermit = \
-        models.TextField(max_length=255, blank=True, null=True)
-    referencesToMigrantCommunities = \
-        models.TextField(max_length=255, blank=True, null=True)
-    psychologicalSupport = \
-        models.TextField(max_length=255, blank=True, null=True)
-    additionalUsefulResourcesAndLinks = \
-        models.TextField(max_length=255, blank=True, null=True)
-
-    def __str__(self):
-        return self.country
+    countryDescription = tinymce_models.HTMLField(blank=True, default='',null=True)
+    language = tinymce_models.HTMLField(blank=True, default='',null=True)
+    specialConditionsForUkrainianWomen = tinymce_models.HTMLField(blank=True, default='',null=True)
+    medicalInsuranceForNonCitizens = tinymce_models.HTMLField(blank=True, default='',null=True)
+    medicalInsuranceCoverageForPregnancyAndChildbirth = tinymce_models.HTMLField(blank=True, default='',null=True)
+    organizationOfPrenatalCare = tinymce_models.HTMLField(blank=True, default='',null=True)
+    prenatalCareForNonCitizens = tinymce_models.HTMLField(blank=True, default='',null=True)
+    costOfDelivery = tinymce_models.HTMLField(blank=True, default='',null=True)
+    organizationOfDelivery = tinymce_models.HTMLField(blank=True, default='',null=True)
+    naturalBirthOrCesareanSection = tinymce_models.HTMLField(blank=True, default='',null=True)
+    citizenshipOfChildByBirth = tinymce_models.HTMLField(blank=True, default='',null=True)
+    prospectsOfParentsObtainingCitizenship = tinymce_models.HTMLField(blank=True, default='',null=True)
+    durationOfMaternityLeave = tinymce_models.HTMLField(blank=True, default='',null=True)
+    durationOfMaternityLeave = tinymce_models.HTMLField(blank=True, default='',null=True)
+    preparationCoursesForChildbirth = tinymce_models.HTMLField(blank=True, default='',null=True)
+    durationOfJobProtectionForMother = tinymce_models.HTMLField(blank=True, default='',null=True)
+    paymentsDuringPregnancy = tinymce_models.HTMLField(blank=True, default='',null=True)
+    childBenefits = tinymce_models.HTMLField(blank=True, default='',null=True)
+    benefitsForMothersAndChildren = tinymce_models.HTMLField(blank=True, default='',null=True)
+    breastfeedingSupport = tinymce_models.HTMLField(blank=True, default='',null=True)
+    postnatalSupportGroups = tinymce_models.HTMLField(blank=True, default='',null=True)
+    arrangementOfChildCareFacilities = tinymce_models.HTMLField(blank=True, default='',null=True)
+    mandatoryAgeForKindergarten = tinymce_models.HTMLField(blank=True, default='',null=True)
+    costOfDaycare = tinymce_models.HTMLField(blank=True, default='',null=True)
+    nursery = tinymce_models.HTMLField(blank=True, default='',null=True)
+    costOfNursery = tinymce_models.HTMLField(blank=True, default='',null=True)
+    mandatorySchoolAge = tinymce_models.HTMLField(blank=True, default='',null=True)
+    bonusesForHaving23Children = tinymce_models.HTMLField(blank=True, default='',null=True)
+    conditionsForSingleMothers = tinymce_models.HTMLField(blank=True, default='',null=True)
+    conditionsForChildrenWithDisabilities = tinymce_models.HTMLField(blank=True, default='',null=True)
+    referencesToAssociationsFundsForMoms = tinymce_models.HTMLField(blank=True, default='',null=True)
+    doctorAppointmentBookingAndPhysicianReviews = tinymce_models.HTMLField(blank=True, default='',null=True)
+    immigrationConditionsResidencePermit = tinymce_models.HTMLField(blank=True, default='',null=True)
+    referencesToMigrantCommunities = tinymce_models.HTMLField(blank=True, default='',null=True)
+    psychologicalSupport = tinymce_models.HTMLField(blank=True, default='',null=True)
+    additionalUsefulResourcesAndLinks = tinymce_models.HTMLField(blank=True, default='',null=True)
 
     class Meta:
         verbose_name_plural = "Countries"

@@ -36,20 +36,23 @@ def upload_data_from_excel():
     for _, row in df.iterrows():
         # Assuming you have 37 columns in the core_country table
         query = """
-            INSERT INTO core_country (country, code, countryDescription, language, 
-            specialConditionsForUkrainianWomen, medicalInsuranceForNonCitizens, 
-            medicalInsuranceCoverageForPregnancyAndChildbirth, 
-            organizationOfPrenatalCare, prenatalCareForNonCitizens, costOfDelivery, 
-            organizationOfDelivery, naturalBirthOrCesareanSection, 
-            citizenshipOfChildByBirth, prospectsOfParentsObtainingCitizenship, 
-            durationOfMaternityLeave, preparationCoursesForChildbirth, 
-            durationOfJobProtectionForMother, paymentsDuringPregnancy, 
-            childBenefits, benefitsForMothersAndChildren, breastfeedingSupport, 
-            postnatalSupportGroups, arrangementOfChildCareFacilities, mandatoryAgeForKindergarten, costOfDaycare, 
-            nursery, costOfNursery, mandatorySchoolAge, bonusesForHaving23Children, conditionsForSingleMothers, 
-            conditionsForChildrenWithDisabilities, referencesToAssociationsFundsForMoms, 
-            doctorAppointmentBookingAndPhysicianReviews, immigrationConditionsResidencePermit, 
-            referencesToMigrantCommunities, psychologicalSupport, additionalUsefulResourcesAndLinks
+            INSERT INTO core_country (
+            country_uk, code, countryDescription_uk, language_uk,
+            specialConditionsForUkrainianWomen_uk, medicalInsuranceForNonCitizens_uk,
+            medicalInsuranceCoverageForPregnancyAndChildbirth_uk,
+            organizationOfPrenatalCare_uk, prenatalCareForNonCitizens_uk, costOfDelivery_uk,
+            organizationOfDelivery_uk, naturalBirthOrCesareanSection_uk,
+            citizenshipOfChildByBirth_uk, prospectsOfParentsObtainingCitizenship_uk,
+            durationOfMaternityLeave_uk, preparationCoursesForChildbirth_uk,
+            durationOfJobProtectionForMother_uk, paymentsDuringPregnancy_uk,
+            childBenefits_uk, benefitsForMothersAndChildren_uk, breastfeedingSupport_uk,
+            postnatalSupportGroups_uk, arrangementOfChildCareFacilities_uk,
+            mandatoryAgeForKindergarten_uk, costOfDaycare_uk,
+            nursery_uk, costOfNursery_uk, mandatorySchoolAge_uk,
+            bonusesForHaving23Children_uk, conditionsForSingleMothers_uk,
+            conditionsForChildrenWithDisabilities_uk, referencesToAssociationsFundsForMoms_uk,
+            doctorAppointmentBookingAndPhysicianReviews_uk, immigrationConditionsResidencePermit_uk,
+            referencesToMigrantCommunities_uk, psychologicalSupport_uk, additionalUsefulResourcesAndLinks_uk
 )
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,
              %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 

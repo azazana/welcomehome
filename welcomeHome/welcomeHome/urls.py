@@ -17,9 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from core import views
+from django.conf.urls.i18n import i18n_patterns
 
-urlpatterns = [
+urlpatterns = i18n_patterns(
     path("admin/", admin.site.urls),
-    path("api/country", include("country.urls")),
-    path("health-check", views.health_check, name="health-check")
-]
+    path("api/", include("country.urls")),
+    path("health-check/", views.health_check, name="health-check"),
+    path('tinymce/', include('tinymce.urls')),
+)

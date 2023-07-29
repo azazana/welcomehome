@@ -7,3 +7,5 @@ mysql-connector-python==8.1
 pandas==2.0
 openpyxl==3.1.2
 uwsgi==2.0.21
+django-modeltranslation==0.18.11
+django-tinymce
