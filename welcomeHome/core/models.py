@@ -74,4 +74,7 @@ class Country(models.Model):
         tinymce_models.HTMLField(blank=True, default='', null=True)
 
     class Meta:
-        verbose_name_plural = "Countries"
+        verbose_name_plural = 'Countries'
+
+    def __str__(self):
+        return f'{self.country}'
