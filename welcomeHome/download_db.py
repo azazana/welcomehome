@@ -5,6 +5,25 @@ import mysql.connector
 import pandas as pd
 from django.conf import settings
 from dotenv import load_dotenv
+import urllib3
+import ssl
+from typograf import typograf
+
+typograf(text, **params)
+text = {"text": "Я от дедушки ушёл..."}
+# url = "http://www.typograf.ru/webservice/"
+# params = parse.urlencode({"text": "Я от дедушки ушёл..."})
+# params = params.encode('utf-8')
+# context = ssl._create_unverified_context()
+# f = request.urlopen(url, params, context=context)
+#
+# data_str = f.read().decode('windows-1251')
+#
+# print(data_str)
+
+service_url = 'http://www.typograf.ru/webservice/'
+text = urllib3.PoolManager().request('POST', service_url,
+                                     fields={'text': text, 'chr': 'UTF-8'}).data.decode('utf8')
 
 load_dotenv()
 
