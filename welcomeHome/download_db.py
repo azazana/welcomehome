@@ -24,7 +24,7 @@ def get_typogram(text):
     if " " not in text:
         return text
     else:
-        urllib3.PoolManager().request('POST', url, fields={'text': text, 'chr': 'UTF-8'}). \
+        return urllib3.PoolManager().request('POST', url, fields={'text': text, 'chr': 'UTF-8'}). \
             data.decode('utf8')
 
 

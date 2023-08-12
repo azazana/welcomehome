@@ -11,11 +11,13 @@
     <div class="row">
         <div class="col-8 mx-5">
             <h1 class="mb-5">Countries</h1>
+            <ul>
             {% for country in countries %}
-                <h2 class="mb-5">{{country.country}}</h2>
-                <div class="description">{{ country.countryDescription|safe }}</div>
+                <li>
+                    <a class="mb-5" href="{% url 'country:details' country.id %}">{{country.country}}</a>
+                </li>
             {% endfor %}
-
+          </ul>
         </div>
     </div>
 </div>

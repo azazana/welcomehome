@@ -15,6 +15,6 @@ app_name = "country"
 
 urlpatterns = [
     path("", include(router.urls)),
-    path("index/", views.index),
-    path('details/<int:id>', views.details, name='details')
+    path("details/<int:id>", views.details, name="details"),
+    path("index/", views.index, name="index"),
 ]
