@@ -96,7 +96,6 @@ def upload_data_from_excel():
             row[35], row[36]
         )
         result = tuple(get_typogram(element) if element is not None else None for element in values)
-        print(result)
         # Execute the query using the cursor and values
         cursor.execute(query, result)
 
