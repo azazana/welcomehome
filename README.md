@@ -12,4 +12,3 @@ override database
 docker exec -it welcomehome-app-1 bash
 
 python download_db.py
-'''
