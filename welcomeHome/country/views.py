@@ -1,6 +1,7 @@
 from core.models import (
     Country,
 )
+from core.permissions import CustomDeletePermission
 from country import serializers
 from django.shortcuts import render
 from rest_framework import viewsets
@@ -11,6 +12,7 @@ class CountryViewSet(viewsets.ModelViewSet):
 
     serializer_class = serializers.CountrySerializer
     queryset = Country.objects.all()
+    permission_classes = [CustomDeletePermission]
 
     def get_queryset(self):
         return Country.objects.all().order_by("-id")
