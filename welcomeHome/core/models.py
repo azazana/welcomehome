@@ -78,3 +78,16 @@ class Country(models.Model):
 
     def __str__(self):
         return f'{self.country}'
+
+
+class CountryFilters(models.Model):
+    country = models.OneToOneField(Country, on_delete=models.CASCADE)
+    citizenshipByBirth = models.BooleanField()
+    costOfChildBirthInStateClinic = models.CharField()
+    minimumDurationOfPaidMaternityLeave = models.CharField()
+    freeKindergarten = models.BooleanField()
+    hoursPerWeekChildrenFreePreschoolEducation = models.CharField()
+    ageFreePreschoolEducation = models.IntegerField()
+
+    def __str__(self):
+        return self.country.name
