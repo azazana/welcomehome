@@ -5,30 +5,29 @@ import mysql.connector
 import pandas as pd
 from django.conf import settings
 from dotenv import load_dotenv
+
+import certifi
 import urllib3
-import ssl
-from typograf import typograf
 
-typograf(text, **params)
-text = {"text": "Я от дедушки ушёл..."}
-# url = "http://www.typograf.ru/webservice/"
-# params = parse.urlencode({"text": "Я от дедушки ушёл..."})
-# params = params.encode('utf-8')
-# context = ssl._create_unverified_context()
-# f = request.urlopen(url, params, context=context)
-#
-# data_str = f.read().decode('windows-1251')
-#
-# print(data_str)
-
-service_url = 'http://www.typograf.ru/webservice/'
-text = urllib3.PoolManager().request('POST', service_url,
-                                     fields={'text': text, 'chr': 'UTF-8'}).data.decode('utf8')
 
 load_dotenv()
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'welcomeHome.settings')
 django.setup()
+
+http = urllib3.PoolManager(
+    cert_reqs='CERT_REQUIRED',
+    ca_certs=certifi.where()
+)
+url = 'https://typograf.ru/webservice/'
+
+
+def get_typogram(text):
+    if " " not in text:
+        return text
+    else:
+        return urllib3.PoolManager().request('POST', url, fields={'text': text, 'chr': 'UTF-8'}). \
+            data.decode('utf8')
 
 
 def upload_data_from_excel():
@@ -98,9 +97,9 @@ def upload_data_from_excel():
             row[31], row[32], row[33], row[34],
             row[35], row[36]
         )
-
+        result = tuple(get_typogram(element) if element is not None else None for element in values)
         # Execute the query using the cursor and values
-        cursor.execute(query, values)
+        cursor.execute(query, result)
 
         # Сохраняем изменения в базе данных
     cnx.commit()

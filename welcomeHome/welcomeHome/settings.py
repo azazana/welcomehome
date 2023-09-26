@@ -62,6 +62,8 @@ INSTALLED_APPS = [
     "core",
     "tinymce",
     "country",
+    "rest_framework",
+    "drf_spectacular",
 ]
 TRANSLATABLE_MODEL_MODULES = ["core.models"]
 
@@ -150,6 +152,10 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
+
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
