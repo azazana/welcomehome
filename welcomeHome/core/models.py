@@ -81,12 +81,13 @@ class Country(models.Model):
 
 
 class CountryFilters(models.Model):
+    """Filters for country."""
     country = models.OneToOneField(Country, on_delete=models.CASCADE)
     citizenshipByBirth = models.BooleanField()
-    costOfChildBirthInStateClinic = models.CharField()
-    minimumDurationOfPaidMaternityLeave = models.CharField()
+    costOfChildBirthInStateClinic = models.CharField(max_length=255)
+    minimumDurationOfPaidMaternityLeave = models.CharField(max_length=255)
     freeKindergarten = models.BooleanField()
-    hoursPerWeekChildrenFreePreschoolEducation = models.CharField()
+    hoursPerWeekChildrenFreePreschoolEducation = models.CharField(max_length=255)
     ageFreePreschoolEducation = models.IntegerField()
 
     def __str__(self):

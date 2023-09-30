@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from core.models import Country, FilterCountry
+from core.models import Country, CountryFilters
 
 
 class CountrySerializer(serializers.ModelSerializer):
@@ -13,6 +13,6 @@ class CountrySerializer(serializers.ModelSerializer):
 class FilterCountrySerializer(serializers.ModelSerializer):
     """Serializer for filters"""
     class Meta:
-        model = FilterCountry
+        model = CountryFilters
         fields = '__all__'
         read_only_fields = ['id']
