@@ -1,5 +1,6 @@
 from django.db import models
 from tinymce import models as tinymce_models
+from enum import Enum
 
 
 class Country(models.Model):
@@ -24,7 +25,7 @@ class Country(models.Model):
         tinymce_models.HTMLField(blank=True, default='', null=True)
     organizationOfDelivery = \
         tinymce_models.HTMLField(blank=True, default='', null=True)
-    naturalBirthOrCesareanSection =\
+    naturalBirthOrCesareanSection = \
         tinymce_models.HTMLField(blank=True, default='', null=True)
     citizenshipOfChildByBirth = \
         tinymce_models.HTMLField(blank=True, default='', null=True)
@@ -82,13 +83,69 @@ class Country(models.Model):
 
 class CountryFilters(models.Model):
     """Filters for country."""
-    country = models.OneToOneField(Country, on_delete=models.CASCADE)
-    citizenshipByBirth = models.BooleanField()
-    costOfChildBirthInStateClinic = models.CharField(max_length=255)
-    minimumDurationOfPaidMaternityLeave = models.CharField(max_length=255)
-    freeKindergarten = models.BooleanField()
-    hoursPerWeekChildrenFreePreschoolEducation = models.CharField(max_length=255)
-    ageFreePreschoolEducation = models.IntegerField()
 
+    class CostOfBirthInStateClinicChoice(Enum):
+        CHOICE = "безкоштовно з державним страхуванням"
+
+    class MinimumDurationOfPaidMaternityLeaveChoice(Enum):
+        CHOICE1 = "0"
+        CHOICE2 = "0 - 5"
+        CHOICE3 = "5 - 10"
+        CHOICE4 = "10 - 15"
+        CHOICE5 = "15 - 20"
+        CHOICE6 = "20 - 30"
+        CHOICE7 = "30 - 40"
+        CHOICE8 = "40 - 50"
+        CHOICE9 = "50 - 65"
+        CHOICE10 = "65 + "
+
+    class SpecialConditionsOfDepositForUkrainiansChoice(Enum):
+        CHOICE = "безкоштовно"
+        CHOICE1 = "ні"
+
+    class HoursPerWeekChildrenFreePreschoolEducationChoice(Enum):
+        CHOICE1 = "n/a"
+        CHOICE2 = "0 - 10"
+        CHOICE3 = "10 - 15"
+        CHOICE4 = "15 - 20"
+        CHOICE5 = "20 - 30"
+        CHOICE6 = "30 - 45"
+
+    class TheAgeFreePreschoolEducationChoice(Enum):
+        CHOICE1 = "0"
+        CHOICE2 = "1"
+        CHOICE3 = "2"
+        CHOICE4 = "3"
+        CHOICE5 = "4"
+        CHOICE6 = "5"
+        CHOICE7 = "6"
+        CHOICE8 = "не мають"
+        CHOICE9 = "n/a"
+
+    def _getListOfChoice(self, nameOfClass):
+        return [(choice.value, choice.key) for choice in nameOfClass]
+
+    country = models.OneToOneField(Country, on_delete=models.CASCADE)
+    specialConditionsOfDepositForUkrainians = models.CharField(max_length=11,
+                                                               choices=_getListOfChoice(
+                                                                   SpecialConditionsOfDepositForUkrainiansChoice
+                                                               ),
+                                                               )
+    citizenshipByBirth = models.BooleanField()
+    costOfChildBirthInStateClinic = models.CharField(max_length=36, choices=_getListOfChoice(
+        CostOfBirthInStateClinicChoice
+    ))
+    minimumDurationOfPaidMaternityLeave = models.CharField(max_length=9,
+                                                           choices=_getListOfChoice(
+                                                               MinimumDurationOfPaidMaternityLeaveChoice,
+                                                           ))
+    freeKindergarten = models.BooleanField()
+    hoursPerWeekChildrenFreePreschoolEducation = models.CharField(max_length=11,
+                                                                  choices=_getListOfChoice(
+                                                                      HoursPerWeekChildrenFreePreschoolEducationChoice))
+    ageFreePreschoolEducation = models.CharField(max_length=11,
+                                                      choices=_getListOfChoice(TheAgeFreePreschoolEducationChoice
+                                                                               ))
+    costOfChildcareFromUSDPerMonth=models.IntegerField()
     def __str__(self):
         return self.country.name
