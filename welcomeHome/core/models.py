@@ -132,12 +132,12 @@ class CountryFilters(models.Model):
     specialConditionsOfDepositForUkrainians = models.CharField(max_length=11,
                                                                choices=SPECIAL_UK_CHOICE,
                                                                )
-    citizenshipByBirth = models.BooleanField()
+    citizenshipByBirth = models.BooleanField(default=False, blank=False,null=False)
     costOfBirthInStateClinic = models.CharField(max_length=36, choices=COST_CHOICE)
     minimumDurationOfPaidMaternityLeave = models.CharField(max_length=9,
                                                            choices=MINIMUM_DURATION_CHOICES
                                                            )
-    freeKindergarten = models.BooleanField()
+    freeKindergarten = models.BooleanField(default=False, blank=False,null=False)
     hoursPerWeekChildrenFreePreschoolEducation = models.CharField(max_length=11,
                                                                   choices=HOURS_PER_WEEK_CHOICES)
     ageFreePreschoolEducation = models.CharField(max_length=11,
