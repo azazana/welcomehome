@@ -1,6 +1,7 @@
 from django.db import models
 from tinymce import models as tinymce_models
 from enum import Enum
+from django.utils.translation import gettext_lazy as _
 
 
 class Country(models.Model):
@@ -84,68 +85,65 @@ class Country(models.Model):
 class CountryFilters(models.Model):
     """Filters for country."""
 
-    class CostOfBirthInStateClinicChoice(Enum):
-        CHOICE = "безкоштовно з державним страхуванням"
+    COST_CHOICE = [(_("безкоштовно"), _(
+        "безкоштовно з державним страхуванням"
+    ))]
 
-    class MinimumDurationOfPaidMaternityLeaveChoice(Enum):
-        CHOICE1 = "0"
-        CHOICE2 = "0 - 5"
-        CHOICE3 = "5 - 10"
-        CHOICE4 = "10 - 15"
-        CHOICE5 = "15 - 20"
-        CHOICE6 = "20 - 30"
-        CHOICE7 = "30 - 40"
-        CHOICE8 = "40 - 50"
-        CHOICE9 = "50 - 65"
-        CHOICE10 = "65 + "
+    MINIMUM_DURATION_CHOICES = (
+        ("0", "0"),
+        ("0 - 5", "0 - 5"),
+        ("5 - 10", "5 - 10"),
+        ("10 - 15", "10 - 15"),
+        ("15 - 20", "15 - 20"),
+        ("20 - 30", "20 - 30"),
+        ("30 - 40", "30 - 40"),
+        ("40 - 50", "40 - 50"),
+        ("50 - 65", "50 - 65"),
+        ("65+", "65+")
+    )
 
-    class SpecialConditionsOfDepositForUkrainiansChoice(Enum):
-        CHOICE = "безкоштовно"
-        CHOICE1 = "ні"
+    SPECIAL_UK_CHOICE = (_("безкоштовно"), _("безкоштовно")), (_("ні"), _("ні"))
 
-    class HoursPerWeekChildrenFreePreschoolEducationChoice(Enum):
-        CHOICE1 = "n/a"
-        CHOICE2 = "0 - 10"
-        CHOICE3 = "10 - 15"
-        CHOICE4 = "15 - 20"
-        CHOICE5 = "20 - 30"
-        CHOICE6 = "30 - 45"
+    HOURS_PER_WEEK_CHOICES = (
+        ("n/a", "n/a"),
+        ("0 - 10", "0 - 10"),
+        ("10 - 15", "10 - 15"),
+        ("15 - 20", "15 - 20"),
+        ("20 - 30", "20 - 30"),
+        ("30 - 45", "30 - 45")
+    )
 
-    class TheAgeFreePreschoolEducationChoice(Enum):
-        CHOICE1 = "0"
-        CHOICE2 = "1"
-        CHOICE3 = "2"
-        CHOICE4 = "3"
-        CHOICE5 = "4"
-        CHOICE6 = "5"
-        CHOICE7 = "6"
-        CHOICE8 = "не мають"
-        CHOICE9 = "n/a"
+    AGE_CHOICES = (
+        ("0", "0"),
+        ("1", "1"),
+        ("2", "2"),
+        ("3", "3"),
+        ("4", "4"),
+        ("5", "5"),
+        ("6", "6"),
+        (_("не мають"), _("не мають")),
+        ("n/a", "n/a")
+    )
 
     def _getListOfChoice(self, nameOfClass):
         return [(choice.value, choice.key) for choice in nameOfClass]
 
     country = models.OneToOneField(Country, on_delete=models.CASCADE)
     specialConditionsOfDepositForUkrainians = models.CharField(max_length=11,
-                                                               choices=_getListOfChoice(
-                                                                   SpecialConditionsOfDepositForUkrainiansChoice
-                                                               ),
+                                                               choices=SPECIAL_UK_CHOICE,
                                                                )
     citizenshipByBirth = models.BooleanField()
-    costOfChildBirthInStateClinic = models.CharField(max_length=36, choices=_getListOfChoice(
-        CostOfBirthInStateClinicChoice
-    ))
+    costOfBirthInStateClinic = models.CharField(max_length=36, choices=COST_CHOICE)
     minimumDurationOfPaidMaternityLeave = models.CharField(max_length=9,
-                                                           choices=_getListOfChoice(
-                                                               MinimumDurationOfPaidMaternityLeaveChoice,
-                                                           ))
+                                                           choices=MINIMUM_DURATION_CHOICES
+                                                           )
     freeKindergarten = models.BooleanField()
     hoursPerWeekChildrenFreePreschoolEducation = models.CharField(max_length=11,
-                                                                  choices=_getListOfChoice(
-                                                                      HoursPerWeekChildrenFreePreschoolEducationChoice))
+                                                                  choices=HOURS_PER_WEEK_CHOICES)
     ageFreePreschoolEducation = models.CharField(max_length=11,
-                                                      choices=_getListOfChoice(TheAgeFreePreschoolEducationChoice
-                                                                               ))
-    costOfChildcareFromUSDPerMonth=models.IntegerField()
+                                                 choices=AGE_CHOICES
+                                                 )
+    costOfChildcareFromUSDPerMonth = models.IntegerField(null=True)
+
     def __str__(self):
-        return self.country.name
+        return self.country.country
