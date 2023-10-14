@@ -43,7 +43,7 @@ LANGUAGES = (
     ('uk', gettext('Ukrainian')),
 )
 
-USE_I18N = True
+# USE_I18N = True
 
 LOCALE_PATHS = (
     'locale',
@@ -124,7 +124,7 @@ DATABASES = {
         'PORT': '3306',  # e.g., '3306'
     }
 }
-
+USE_I18N = False
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -150,7 +150,7 @@ LANGUAGE_CODE = "uk-ru"
 
 TIME_ZONE = "UTC"
 
-USE_I18N = True
+# USE_I18N = True
 
 USE_TZ = True
 

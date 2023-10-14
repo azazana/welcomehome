@@ -84,6 +84,7 @@ class CountryViewSet(viewsets.ModelViewSet):
         return queryset
     def _get_param_from_request(self,param):
         return  self.request.query_params.get(param)
+
     def get_queryset(self):
         """Retrieve countries with filter."""
         codes = self._get_param_from_request("code")

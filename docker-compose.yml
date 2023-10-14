@@ -9,13 +9,14 @@ services:
       - MYSQL_DATABASE = ${MYSQL_DATABASE}
       - MYSQL_USER = ${MYSQL_USER}
       - MYSQL_PASSWORD = ${MYSQL_PASSWORD}
-
     env_file:
       - .env
     ports:
       - 3306:3306
     volumes:
      - db_data:/var/lib/mysql
+     - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./docker-entrypoint.sh:/usr/local/bin/docker-entrypoint.sh
   app:
     environment:
       - SECRET_KEY=${SECRET_KEY}
