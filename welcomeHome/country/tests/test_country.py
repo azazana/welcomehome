@@ -1,10 +1,10 @@
-from core.models import Country
+from core.models import Country, CountryFilters
+from country.serializers import CountrySerializer
 from django.test import TestCase
 from django.urls import reverse
-from country.serializers import CountrySerializer
+from django.utils.translation import override
 from rest_framework import status
 from rest_framework.test import APIClient
-from django.utils.translation import activate, override
 
 COUNTRY_URL = reverse("country:country-list")
 
@@ -24,6 +24,7 @@ def create_country(**params: dict):
     }
     defaults.update(params)
     country = Country.objects.create(**defaults)
+
     return country
 
 
@@ -53,10 +54,40 @@ class CountryAPITests(TestCase):
             self.assertEqual(res.status_code, status.HTTP_200_OK)
             self.assertEqual(res.data, serializer.data)
 
+    def _assert_data_by_filters(self, response):
+        expected_data = CountrySerializer([self.country], many=True).data
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, expected_data)
+
     def test_filter_countries_by_code(self):
         """Test for countries with filter code"""
         with override('uk'):
-            response = self.client.get(COUNTRY_URL)
-            self.assertEqual(response.status_code, status.HTTP_200_OK)
-            expected_data = CountrySerializer([self.country], many=True).data
-            self.assertEqual(response.data, expected_data)
+            response = self.client.get(COUNTRY_URL, {"code": "MDETS"})
+            self._assert_data_by_filters(response)
+
+    def test_filter_by_costOfBirthInStateClinic(self):
+            default_filters = {
+                "costOfBirthInStateClinic": "безкоштовно",
+                "specialConditionsForUkrainians": "ні",
+                "citizenshipByBirth": True,
+                "minimumDurationOfPaidMaternityLeave": "0 - 5",
+                "freeKindergarten": True,
+                "hoursPerWeekChildrenFreePreschoolEducation": "0 - 10",
+                "ageFreePreschoolEducation": "1",
+                "costOfChildcareFromUSDPerMonth": 50,
+            }
+            CountryFilters.objects.create(country=self.country, **default_filters)
+            with override('uk'):
+                for key, value in default_filters.items():
+                    response = self.client.get(COUNTRY_URL, {key: value})
+                    self._assert_data_by_filters(response)
+            # with override('ru'):
+            #     default_filters = {
+            #         "costOfBirthInStateClinic": "бесплатно",
+            #         "specialConditionsForUkrainians": "нет",
+            #     }
+            #     CountryFilters.objects.create(country=self.country, **default_filters)
+            #     for key, value in default_filters.items():
+            #         response = self.client.get(COUNTRY_URL, {key: value})
+            #         self._assert_data_by_filters(response)
+

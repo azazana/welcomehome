@@ -31,7 +31,7 @@ from rest_framework import viewsets
                 description='Citizenship for newborn baby',
             ),
             OpenApiParameter(
-                'specialConditionsOfDepositForUkrainians',
+                'specialConditionsForUkrainians',
                 OpenApiTypes.STR,
                 description='special conditions for Ukrainians',
             ),
@@ -90,7 +90,7 @@ class CountryViewSet(viewsets.ModelViewSet):
         codes = self._get_param_from_request("code")
         costOfBirthInStateClinic = self._get_param_from_request("costOfBirthInStateClinic")
         citizenshipByBirth = self._get_param_from_request("citzenshipByBirth")
-        specialConditionsForUkrainians = self._get_param_from_request("specialConditionsOfDepositForUkrainians")
+        specialConditionsForUkrainians = self._get_param_from_request("specialConditionsForUkrainians")
         minimumDurationOfPaidMaternityLeave = self._get_param_from_request("minimumDurationOfPaidMaternityLeave")
         freeKindergarten = self._get_param_from_request("freeKindergarten")
         hoursPerWeekChildrenFreePreschoolEducation = self._get_param_from_request("hoursPerWeekChildrenFreePreschoolEducation")
@@ -110,13 +110,6 @@ class CountryViewSet(viewsets.ModelViewSet):
                                                   {"minimumDurationOfPaidMaternityLeave__in": self._params_to_str(
                                                       minimumDurationOfPaidMaternityLeave),
                                                   }, field=minimumDurationOfPaidMaternityLeave
-                                                  )
-        queryset = self._get_queryset_with_filter(queryset,
-                                                  dict_param=
-                                                  {
-                                                      "hoursPerWeekChildrenFreePreschoolEducation__in": self._params_to_str(
-                                                          hoursPerWeekChildrenFreePreschoolEducation),
-                                                  }, field=freeKindergarten
                                                   )
         queryset = self._get_queryset_with_filter(queryset,
                                                   dict_param=
@@ -142,7 +135,7 @@ class CountryViewSet(viewsets.ModelViewSet):
         queryset = self._get_queryset_with_filter(queryset,
                                                   dict_param=
                                                   {"freeKindergarten": freeKindergarten.lower() == "true" if isinstance(
-                                                      freeKindergarten, str) else None,
+                                                          freeKindergarten, str) else None,
                                                    }, field=freeKindergarten
                                                   )
         queryset = self._get_queryset_with_filter(queryset,

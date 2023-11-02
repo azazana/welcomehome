@@ -129,7 +129,7 @@ class CountryFilters(models.Model):
         return [(choice.value, choice.key) for choice in nameOfClass]
 
     country = models.OneToOneField(Country, on_delete=models.CASCADE)
-    specialConditionsOfDepositForUkrainians = models.CharField(max_length=11,
+    specialConditionsForUkrainians = models.CharField(max_length=11,
                                                                choices=SPECIAL_UK_CHOICE,
                                                                )
     citizenshipByBirth = models.BooleanField(default=False, blank=False,null=False)
