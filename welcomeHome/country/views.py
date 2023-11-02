@@ -64,7 +64,7 @@ class CountryViewSet(viewsets.ModelViewSet):
     queryset = Country.objects.all()
     permission_classes = [CustomDeletePermission]
 
-    def _params_to_str(self, qs, type = str):
+    def _params_to_str(self, qs, type=str):
         """Convert a str to list of strings."""
         if qs:
             if type == str:
@@ -82,8 +82,9 @@ class CountryViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(
                 id__in=country_filter.values_list("country", flat=True))
         return queryset
-    def _get_param_from_request(self,param):
-        return  self.request.query_params.get(param)
+
+    def _get_param_from_request(self, param):
+        return self.request.query_params.get(param)
 
     def get_queryset(self):
         """Retrieve countries with filter."""
@@ -93,9 +94,10 @@ class CountryViewSet(viewsets.ModelViewSet):
         specialConditionsForUkrainians = self._get_param_from_request("specialConditionsForUkrainians")
         minimumDurationOfPaidMaternityLeave = self._get_param_from_request("minimumDurationOfPaidMaternityLeave")
         freeKindergarten = self._get_param_from_request("freeKindergarten")
-        hoursPerWeekChildrenFreePreschoolEducation = self._get_param_from_request("hoursPerWeekChildrenFreePreschoolEducation")
-        ageFreePreschoolEducation=self._get_param_from_request("ageFreePreschoolEducation")
-        costOfChildcareFromUSDPerMonth=self._get_param_from_request("costOfChildcareFromUSDPerMonth")
+        hoursPerWeekChildrenFreePreschoolEducation = self._get_param_from_request(
+            "hoursPerWeekChildrenFreePreschoolEducation")
+        ageFreePreschoolEducation = self._get_param_from_request("ageFreePreschoolEducation")
+        costOfChildcareFromUSDPerMonth = self._get_param_from_request("costOfChildcareFromUSDPerMonth")
         queryset = self.queryset
         if codes:
             queryset = queryset.filter(code__in=self._params_to_str(codes))
@@ -119,7 +121,6 @@ class CountryViewSet(viewsets.ModelViewSet):
                                                   }, field=ageFreePreschoolEducation
                                                   )
 
-
         queryset = self._get_queryset_with_filter(queryset,
                                                   dict_param=
                                                   {
@@ -135,14 +136,14 @@ class CountryViewSet(viewsets.ModelViewSet):
         queryset = self._get_queryset_with_filter(queryset,
                                                   dict_param=
                                                   {"freeKindergarten": freeKindergarten.lower() == "true" if isinstance(
-                                                          freeKindergarten, str) else None,
+                                                      freeKindergarten, str) else None,
                                                    }, field=freeKindergarten
                                                   )
         queryset = self._get_queryset_with_filter(queryset,
                                                   dict_param=
                                                   {"costOfChildcareFromUSDPerMonth__in": self._params_to_str(
-                                                          costOfChildcareFromUSDPerMonth),
-                                                   }, field=costOfChildcareFromUSDPerMonth
+                                                      costOfChildcareFromUSDPerMonth),
+                                                  }, field=costOfChildcareFromUSDPerMonth
                                                   )
         return queryset.order_by("-id")
 

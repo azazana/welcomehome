@@ -1,6 +1,5 @@
 from django.db import models
 from tinymce import models as tinymce_models
-from enum import Enum
 from django.utils.translation import gettext_lazy as _
 
 
@@ -130,14 +129,14 @@ class CountryFilters(models.Model):
 
     country = models.OneToOneField(Country, on_delete=models.CASCADE)
     specialConditionsForUkrainians = models.CharField(max_length=11,
-                                                               choices=SPECIAL_UK_CHOICE,
-                                                               )
-    citizenshipByBirth = models.BooleanField(default=False, blank=False,null=False)
+                                                      choices=SPECIAL_UK_CHOICE,
+                                                      )
+    citizenshipByBirth = models.BooleanField(default=False, blank=False, null=False)
     costOfBirthInStateClinic = models.CharField(max_length=36, choices=COST_CHOICE)
     minimumDurationOfPaidMaternityLeave = models.CharField(max_length=9,
                                                            choices=MINIMUM_DURATION_CHOICES
                                                            )
-    freeKindergarten = models.BooleanField(default=False, blank=False,null=False)
+    freeKindergarten = models.BooleanField(default=False, blank=False, null=False)
     hoursPerWeekChildrenFreePreschoolEducation = models.CharField(max_length=11,
                                                                   choices=HOURS_PER_WEEK_CHOICES)
     ageFreePreschoolEducation = models.CharField(max_length=11,

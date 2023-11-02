@@ -4,7 +4,6 @@ from core.models import Country, CountryFilters
 
 class CountrySerializer(serializers.ModelSerializer):
     """Serializer for country."""
-
     class Meta:
         model = Country
         fields = '__all__'
