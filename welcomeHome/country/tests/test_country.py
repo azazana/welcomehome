@@ -81,7 +81,7 @@ class CountryAPITests(TestCase):
                 for key, value in default_filters.items():
                     response = self.client.get(COUNTRY_URL, {key: value})
                     self._assert_data_by_filters(response)
-            # with override('ru'):
+            # with override('ru')
             #     default_filters = {
             #         "costOfBirthInStateClinic": "бесплатно",
             #         "specialConditionsForUkrainians": "нет",
