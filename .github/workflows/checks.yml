@@ -19,9 +19,9 @@ jobs:
       - name: Debug Workflow
         run: |
           ls -al
-#      - name: Set Environment Variables from env.sample
-#        run: |
-#          cp ./welcomehome/.env.sample ./welcomehome.env
+      - name: Set Environment Variables from env.sample
+        run: |
+          cp .env.sample .env
       - name: Test
         run: docker-compose run --rm app sh -c "python manage.py wait_for_db && python manage.py test"
       - name: Lint
