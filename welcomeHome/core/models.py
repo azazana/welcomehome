@@ -1,6 +1,6 @@
 from django.db import models
-from tinymce import models as tinymce_models
 from django.utils.translation import gettext_lazy as _
+from tinymce import models as tinymce_models
 
 
 class Country(models.Model):
@@ -101,7 +101,8 @@ class CountryFilters(models.Model):
         ("65+", "65+")
     )
 
-    SPECIAL_UK_CHOICE = (_("безкоштовно"), _("безкоштовно")), (_("ні"), _("ні"))
+    SPECIAL_UK_CHOICE = ((_("безкоштовно"), _("безкоштовно")),
+                         (_("ні"), _("ні")))
 
     HOURS_PER_WEEK_CHOICES = (
         ("n/a", "n/a"),
@@ -128,17 +129,26 @@ class CountryFilters(models.Model):
         return [(choice.value, choice.key) for choice in nameOfClass]
 
     country = models.OneToOneField(Country, on_delete=models.CASCADE)
-    specialConditionsForUkrainians = models.CharField(max_length=11,
-                                                      choices=SPECIAL_UK_CHOICE,
-                                                      )
-    citizenshipByBirth = models.BooleanField(default=False, blank=False, null=False)
-    costOfBirthInStateClinic = models.CharField(max_length=36, choices=COST_CHOICE)
-    minimumDurationOfPaidMaternityLeave = models.CharField(max_length=9,
-                                                           choices=MINIMUM_DURATION_CHOICES
-                                                           )
-    freeKindergarten = models.BooleanField(default=False, blank=False, null=False)
-    hoursPerWeekChildrenFreePreschoolEducation = models.CharField(max_length=11,
-                                                                  choices=HOURS_PER_WEEK_CHOICES)
+    specialConditionsForUkrainians = models.CharField(
+        max_length=11,
+        choices=SPECIAL_UK_CHOICE,
+    )
+    citizenshipByBirth = models.BooleanField(default=False,
+                                             blank=False,
+                                             null=False)
+    costOfBirthInStateClinic = models.CharField(max_length=36,
+                                                choices=COST_CHOICE)
+    minimumDurationOfPaidMaternityLeave = models.CharField(
+        max_length=9,
+        choices=MINIMUM_DURATION_CHOICES
+    )
+    freeKindergarten = models.BooleanField(default=False,
+                                           blank=False,
+                                           null=False)
+    hoursPerWeekChildrenFreePreschoolEducation = models.CharField(
+        max_length=11,
+        choices=HOURS_PER_WEEK_CHOICES
+    )
     ageFreePreschoolEducation = models.CharField(max_length=11,
                                                  choices=AGE_CHOICES
                                                  )

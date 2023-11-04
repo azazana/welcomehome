@@ -23,7 +23,8 @@ from rest_framework import viewsets
             OpenApiParameter(
                 'costOfBirthInStateClinic',
                 OpenApiTypes.STR,
-                description='Comma separated list of cost of birth in state clinics',
+                description='Comma separated list '
+                            'of cost of birth in state clinics',
             ),
             OpenApiParameter(
                 'citizenshipByBirth',
@@ -89,62 +90,89 @@ class CountryViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         """Retrieve countries with filter."""
         codes = self._get_param_from_request("code")
-        costOfBirthInStateClinic = self._get_param_from_request("costOfBirthInStateClinic")
-        citizenshipByBirth = self._get_param_from_request("citzenshipByBirth")
-        specialConditionsForUkrainians = self._get_param_from_request("specialConditionsForUkrainians")
-        minimumDurationOfPaidMaternityLeave = self._get_param_from_request("minimumDurationOfPaidMaternityLeave")
-        freeKindergarten = self._get_param_from_request("freeKindergarten")
-        hoursPerWeekChildrenFreePreschoolEducation = self._get_param_from_request(
-            "hoursPerWeekChildrenFreePreschoolEducation")
-        ageFreePreschoolEducation = self._get_param_from_request("ageFreePreschoolEducation")
-        costOfChildcareFromUSDPerMonth = self._get_param_from_request("costOfChildcareFromUSDPerMonth")
+        costOfBirthInStateClinic = (
+            self._get_param_from_request("costOfBirthInStateClinic"))
+        citizenshipByBirth = (
+            self._get_param_from_request("citzenshipByBirth"))
+        specialConditionsForUkrainians = (
+            self._get_param_from_request("specialConditionsForUkrainians"))
+        minimumDurationOfPaidMaternityLeave = (
+            self._get_param_from_request(
+                "minimumDurationOfPaidMaternityLeave"))
+        freeKindergarten = (
+            self._get_param_from_request("freeKindergarten"))
+        hoursPerWeekChildrenFreePreschoolEducation = (
+            self._get_param_from_request(
+                "hoursPerWeekChildrenFreePreschoolEducation"))
+        ageFreePreschoolEducation = (
+            self._get_param_from_request(
+                "ageFreePreschoolEducation"))
+        costOfChildcareFromUSDPerMonth = (
+            self._get_param_from_request(
+                "costOfChildcareFromUSDPerMonth"
+            ))
         queryset = self.queryset
         if codes:
             queryset = queryset.filter(code__in=self._params_to_str(codes))
-        queryset = self._get_queryset_with_filter(queryset,
-                                                  dict_param=
-                                                  {"costOfBirthInStateClinic__in": self._params_to_str(
-                                                      costOfBirthInStateClinic),
-                                                  }, field=costOfBirthInStateClinic
-                                                  )
-        queryset = self._get_queryset_with_filter(queryset,
-                                                  dict_param=
-                                                  {"minimumDurationOfPaidMaternityLeave__in": self._params_to_str(
-                                                      minimumDurationOfPaidMaternityLeave),
-                                                  }, field=minimumDurationOfPaidMaternityLeave
-                                                  )
-        queryset = self._get_queryset_with_filter(queryset,
-                                                  dict_param=
-                                                  {
-                                                      "ageFreePreschoolEducation__in": self._params_to_str(
-                                                          ageFreePreschoolEducation),
-                                                  }, field=ageFreePreschoolEducation
-                                                  )
-
-        queryset = self._get_queryset_with_filter(queryset,
-                                                  dict_param=
-                                                  {
-                                                      "citizenshipByBirth": citizenshipByBirth.lower() == "true" if isinstance(
-                                                          citizenshipByBirth, str) else None,
-                                                  }, field=citizenshipByBirth
-                                                  )
-        queryset = self._get_queryset_with_filter(queryset,
-                                                  dict_param=
-                                                  {"specialConditionsForUkrainians": specialConditionsForUkrainians,
-                                                   }, field=specialConditionsForUkrainians
-                                                  )
-        queryset = self._get_queryset_with_filter(queryset,
-                                                  dict_param=
-                                                  {"freeKindergarten": freeKindergarten.lower() == "true" if isinstance(
-                                                      freeKindergarten, str) else None,
-                                                   }, field=freeKindergarten
-                                                  )
-        queryset = self._get_queryset_with_filter(queryset,
-                                                  dict_param=
-                                                  {"costOfChildcareFromUSDPerMonth__in": self._params_to_str(
-                                                      costOfChildcareFromUSDPerMonth),
-                                                  }, field=costOfChildcareFromUSDPerMonth
-                                                  )
+        queryset = self._get_queryset_with_filter(
+            queryset,
+            dict_param={
+                "costOfBirthInStateClinic__in":
+                    self._params_to_str(
+                        costOfBirthInStateClinic),
+            }, field=costOfBirthInStateClinic
+        )
+        queryset = self._get_queryset_with_filter(
+            queryset,
+            dict_param={
+                "minimumDurationOfPaidMaternityLeave__in": self._params_to_str(
+                    minimumDurationOfPaidMaternityLeave),
+            }, field=minimumDurationOfPaidMaternityLeave
+        )
+        queryset = self._get_queryset_with_filter(
+            queryset,
+            dict_param={
+                "ageFreePreschoolEducation__in": self._params_to_str(
+                    ageFreePreschoolEducation),
+            }, field=ageFreePreschoolEducation
+        )
+        queryset = self._get_queryset_with_filter(
+            queryset,
+            dict_param={
+                "hoursPerWeekChildrenFreePreschoolEducation__in":
+                    self._params_to_str(
+                        hoursPerWeekChildrenFreePreschoolEducation),
+            }, field=hoursPerWeekChildrenFreePreschoolEducation
+        )
+        queryset = self._get_queryset_with_filter(
+            queryset,
+            dict_param={
+                "citizenshipByBirth": citizenshipByBirth.lower() == "true"
+                if isinstance(citizenshipByBirth, str) else None,
+            }, field=citizenshipByBirth
+        )
+        queryset = self._get_queryset_with_filter(
+            queryset,
+            dict_param={
+                "specialConditionsForUkrainians":
+                    specialConditionsForUkrainians,
+            }, field=specialConditionsForUkrainians
+        )
+        queryset = self._get_queryset_with_filter(
+            queryset,
+            dict_param={
+                "freeKindergarten": freeKindergarten.lower() == "true"
+                if isinstance(
+                    freeKindergarten, str) else None,
+            }, field=freeKindergarten
+        )
+        queryset = self._get_queryset_with_filter(
+            queryset,
+            dict_param={
+                "costOfChildcareFromUSDPerMonth__in": self._params_to_str(
+                    costOfChildcareFromUSDPerMonth),
+            }, field=costOfChildcareFromUSDPerMonth
+        )
         return queryset.order_by("-id")
 
 

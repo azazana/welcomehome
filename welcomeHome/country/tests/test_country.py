@@ -66,28 +66,28 @@ class CountryAPITests(TestCase):
             self._assert_data_by_filters(response)
 
     def test_filter_by_costOfBirthInStateClinic(self):
-            default_filters = {
-                "costOfBirthInStateClinic": "безкоштовно",
-                "specialConditionsForUkrainians": "ні",
-                "citizenshipByBirth": True,
-                "minimumDurationOfPaidMaternityLeave": "0 - 5",
-                "freeKindergarten": True,
-                "hoursPerWeekChildrenFreePreschoolEducation": "0 - 10",
-                "ageFreePreschoolEducation": "1",
-                "costOfChildcareFromUSDPerMonth": 50,
-            }
-            CountryFilters.objects.create(country=self.country, **default_filters)
-            with override('uk'):
-                for key, value in default_filters.items():
-                    response = self.client.get(COUNTRY_URL, {key: value})
-                    self._assert_data_by_filters(response)
-            # with override('ru')
-            #     default_filters = {
-            #         "costOfBirthInStateClinic": "бесплатно",
-            #         "specialConditionsForUkrainians": "нет",
-            #     }
-            #     CountryFilters.objects.create(country=self.country, **default_filters)
-            #     for key, value in default_filters.items():
-            #         response = self.client.get(COUNTRY_URL, {key: value})
-            #         self._assert_data_by_filters(response)
-
+        default_filters = {
+            "costOfBirthInStateClinic": "безкоштовно",
+            "specialConditionsForUkrainians": "ні",
+            "citizenshipByBirth": True,
+            "minimumDurationOfPaidMaternityLeave": "0 - 5",
+            "freeKindergarten": True,
+            "hoursPerWeekChildrenFreePreschoolEducation": "0 - 10",
+            "ageFreePreschoolEducation": "1",
+            "costOfChildcareFromUSDPerMonth": 50,
+        }
+        CountryFilters.objects.create(country=self.country, **default_filters)
+        with override('uk'):
+            for key, value in default_filters.items():
+                response = self.client.get(COUNTRY_URL, {key: value})
+                self._assert_data_by_filters(response)
+        # with override('ru')
+        #     default_filters = {
+        #         "costOfBirthInStateClinic": "бесплатно",
+        #         "specialConditionsForUkrainians": "нет",
+        #     }
+        #     CountryFilters.objects.create(country=self.country,
+        #     **default_filters)
+        #     for key, value in default_filters.items():
+        #         response = self.client.get(COUNTRY_URL, {key: value})
+        #         self._assert_data_by_filters(response)

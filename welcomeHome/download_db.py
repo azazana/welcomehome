@@ -9,7 +9,6 @@ from dotenv import load_dotenv
 import certifi
 import urllib3
 
-
 load_dotenv()
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'welcomeHome.settings')
@@ -26,8 +25,11 @@ def get_typogram(text):
     if " " not in text:
         return text
     else:
-        return urllib3.PoolManager().request('POST', url, fields={'text': text, 'chr': 'UTF-8'}). \
-            data.decode('utf8')
+        return urllib3.PoolManager().request(
+            'POST',
+            url,
+            fields={'text': text,
+                    'chr': 'UTF-8'}).data.decode('utf8')
 
 
 def upload_data_from_excel():
@@ -97,7 +99,8 @@ def upload_data_from_excel():
             row[31], row[32], row[33], row[34],
             row[35], row[36]
         )
-        result = tuple(get_typogram(element) if element is not None else None for element in values)
+        result = tuple(get_typogram(element) if element is not None else None
+                       for element in values)
         # Execute the query using the cursor and values
         cursor.execute(query, result)
 

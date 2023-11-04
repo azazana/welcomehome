@@ -3,13 +3,13 @@ Test for checking health API.
 """
 from django.test import TestCase
 from django.urls import reverse
+from django.utils.translation import activate
 from rest_framework import status
 from rest_framework.test import APIClient
-from django.utils.translation import activate
+
 
 class HealthCheckTests(TestCase):
     """Test the health check API."""
-
     def test_health_check(self):
         language_code = 'uk'
         activate(language_code)  # Set the active language

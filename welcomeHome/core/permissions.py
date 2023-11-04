@@ -6,4 +6,3 @@ class CustomDeletePermission(permissions.BasePermission):
         if request.method != 'GET':
             return False
         return True
-
