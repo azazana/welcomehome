@@ -16,7 +16,7 @@ services:
     volumes:
      - db_data:/var/lib/mysql
      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-     - ./docker-entrypoint.sh:/usr/local/bin/docker-entrypoint.sh
+     - ./scripts/docker-entrypoint.sh:/usr/local/bin/docker-entrypoint.sh
   app:
     environment:
       - SECRET_KEY=${SECRET_KEY}
