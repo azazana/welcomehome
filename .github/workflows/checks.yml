@@ -15,9 +15,8 @@ jobs:
          password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Debug Workflow
-        run: |
-          ls -al
+      - name: Set execute permissions for docker-entrypoint.sh
+        run: chmod +x /usr/local/bin/docker-entrypoint.sh
       - name: Set Environment Variables from env.sample
         run: |
           cp .env.sample .env
