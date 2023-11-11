@@ -1,4 +1,4 @@
-FROM python:3.9-slim
+FROM --platform=linux/amd64 python:3.9-slim
 LABEL maintainer='azazana'
 
 ENV PYTHONUNBUFFERED 1
@@ -10,7 +10,7 @@ RUN apt-get update \
 
 COPY ./requirements.txt /tmp/requirements.txt
 COPY ./requirements.dev.txt /tmp/requirements.dev.txt
-COPY ./scripts ./scripts
+COPY ./scripts /scripts
 
 #COPY ./scripts/run.sh ./scripts/run.sh
 COPY ./welcomeHome /welcomeHome
