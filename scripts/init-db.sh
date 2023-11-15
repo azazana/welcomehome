@@ -1,0 +1,6 @@
+#!/bin/bash
+
+MYSQL_PWD=${MYSQL_ROOT_PASSWORD} mysql -u root <<-EOSQL
+   GRANT ALL PRIVILEGES ON *.* TO 'rootuser'@'%' WITH GRANT OPTION;
+   FLUSH PRIVILEGES;
+EOSQL

@@ -9,8 +9,9 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-import os
+import os, sys
 from pathlib import Path
+
 from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -113,7 +114,10 @@ DJRICHTEXTFIELD_CONFIG = {
         'width': 700
     }
 }
-
+# user=os.environ.get('MYSQL_USER')+"@'%'"
+# MYSQL_PASSWORD=os.environ.get('MYSQL_PASSWORD')
+# print(user)
+# print(MYSQL_PASSWORD)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -121,9 +125,10 @@ DATABASES = {
         'NAME': os.environ.get('MYSQL_DATABASE'),
         'USER': os.environ.get('MYSQL_USER'),
         'PASSWORD': os.environ.get('MYSQL_PASSWORD'),
-        'PORT': '3306',  # e.g., '3306'
-    }
+        'PORT': '3306',  # e.g., '3306',
+    },
 }
+
 USE_I18N = False
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
